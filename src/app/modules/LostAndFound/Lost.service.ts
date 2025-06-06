@@ -1,7 +1,7 @@
 import { TLostItem } from "./Lost.interface"
 import { LostItem } from "./Lost.model"
 
-const creatLostItem = async (lostData: TLostItem) => {
+const createLostItem = async (lostData: TLostItem) => {
     const result = await LostItem.create(lostData);
     return result;
 }
@@ -20,7 +20,7 @@ const getLostItemById = async (id: string) => {
 // }
 
 export const LostService = {
-    creatLostItem,
+   createLostItem,
     getLostItem,
     getLostItemById,
     // updateLostItem
