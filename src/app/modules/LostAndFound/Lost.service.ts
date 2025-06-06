@@ -10,10 +10,10 @@ const getLostItem = async () => {
     const result = await LostItem.find();
     return result;
 }
-// const getLostItemById = async (id: string) => {
-//     const result = await LostItem.findById(id);
-//     return result;
-// }
+const getLostItemById = async (id: string) => {
+    const result = await LostItem.findById(id);
+    return result;
+}
 
 // const updateLostItem = async() =>{
 
@@ -22,6 +22,6 @@ const getLostItem = async () => {
 export const LostService = {
     creatLostItem,
     getLostItem,
-    // getLostItemById,
+    getLostItemById,
     // updateLostItem
 }
