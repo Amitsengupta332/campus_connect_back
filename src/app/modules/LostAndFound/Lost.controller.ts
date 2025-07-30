@@ -12,9 +12,18 @@ const createLostItem = async(req: Request, res: Response) =>{
   }
 }
 
+const getLostItem = async(req: Request, res: Response) => {
+    try {
+        const items = await LostService.getLostItem();
+        res.status(200).json(items);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to get items' });
+    }
+}
+
 export const LostController = {
     createLostItem,
-    // getLostItem,
+    getLostItem,
     // getLostItemById,
     // updateLostItem
 }
