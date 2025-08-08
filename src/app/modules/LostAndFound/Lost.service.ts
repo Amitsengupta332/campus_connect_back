@@ -15,13 +15,14 @@ const getLostItemById = async (id: string) => {
     return result;
 }
 
-// const updateLostItem = async() =>{
-
-// }
+const updateLostItem = async (id: string, updateData: TLostItem) => {
+    const result = await LostItem.findByIdAndUpdate(id, updateData, { new: true });
+    return result;
+}
 
 export const LostService = {
-   createLostItem,
+    createLostItem,
     getLostItem,
     getLostItemById,
-    // updateLostItem
+    updateLostItem
 }

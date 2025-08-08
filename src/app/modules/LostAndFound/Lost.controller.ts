@@ -21,9 +21,36 @@ const getLostItem = async(req: Request, res: Response) => {
     }
 }
 
+const getLostItemById = async(req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        const item = await LostService.getLostItemById(id);
+        if (!item) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+        res.status(200).json(item);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to get item' });
+    }
+}
+
+const updateLostItem = async(req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        const updatedItem = await LostService.updateLostItem(id, req.body);
+        if (!updatedItem) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+        res.status(200).json(updatedItem);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to update item' });
+    }
+}
+
+
 export const LostController = {
     createLostItem,
     getLostItem,
-    // getLostItemById,
-    // updateLostItem
+    getLostItemById,
+    updateLostItem
 }
