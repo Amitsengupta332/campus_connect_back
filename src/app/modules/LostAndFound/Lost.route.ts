@@ -17,11 +17,13 @@
 
 import express from 'express';
 import { ItemController } from './Lost.controller';
+import validateRequest from '../../middlewares/validateRequest';
+import { createItemZodSchema } from './lost.validation';
  
 
 const router = express.Router();
 
-router.post('/create-item', ItemController.createItem);
+router.post('/create-item',  validateRequest(createItemZodSchema), ItemController.createItem);
 router.get('/get-items', ItemController.getItems);
 router.get('/get-item/:id', ItemController.getItemById);
 router.patch('/update-item/:id', ItemController.updateItem);
