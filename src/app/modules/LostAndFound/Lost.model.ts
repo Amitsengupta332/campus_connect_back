@@ -1,7 +1,7 @@
 // import { model, Schema } from 'mongoose';
 // import { TLostItem } from './Lost.interface';
 
-import { model, Schema } from 'mongoose';
+import { model, Schema  } from 'mongoose';
 import { TItem } from './Lost.interface';
  
 
@@ -19,6 +19,11 @@ const ItemSchema = new Schema<TItem>({
     default: 'lost',
   },
   image: String,
+  user: { 
+    type: Schema.Types.ObjectId, 
+    ref: "User", 
+    required: true 
+  },
   date: { type: String, default: new Date().toISOString() },
 }, { timestamps: true });
 

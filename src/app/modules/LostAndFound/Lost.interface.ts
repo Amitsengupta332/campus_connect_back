@@ -1,5 +1,7 @@
 // import { Model } from 'mongoose';
 
+import { Types } from "mongoose";
+
 // export type TLostItem = {
 //   title: string;
 //   description?: string;
@@ -22,6 +24,7 @@ export type TItem = {
   status: 'lost' | 'found'; // default 'lost'
   image?: string;
   date?: string;
+   user: Types.ObjectId; 
 };
 
 // export type TLostItem = {

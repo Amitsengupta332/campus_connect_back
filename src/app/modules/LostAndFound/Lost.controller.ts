@@ -91,16 +91,19 @@
 //   updateLostItem,
 // };
 
-
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import { ItemService } from './Lost.service';
- 
 
 const createItem = async (req: Request, res: Response) => {
-  const result = await ItemService.createItem(req.body);
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const userId = (req.user as any)?.id; // JWT থেকে user id নাও
+  // const result = await ItemService.createItem(req.body);
+  const result = await ItemService.createItem({
+    ...req.body,
+    user: userId, // attach logged-in user
+  });
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
