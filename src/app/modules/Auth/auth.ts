@@ -2,6 +2,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import httpStatus from "http-status";
+import AppError from "../../errors/AppError";
+import config from "../../config";
 
 // Extend Express Request to include user
 declare module "express-serve-static-core" {
@@ -14,21 +16,28 @@ export const auth = (roles: string[] = []) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       // get token from header
-      const authHeader = req.headers.authorization;
-      if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(httpStatus.UNAUTHORIZED).json({
-          success: false,
-          message: "Authorization token missing",
-        });
+      const token = req.headers.authorization;
+      //!authHeader.startsWith("Bearer")
+      console.log('auth header', token);
+      if (!token)  {
+        throw new AppError(httpStatus.UNAUTHORIZED, "Authorization token missing");
+        // return res.status(httpStatus.UNAUTHORIZED).json({
+        //   success: false,
+        //   message: "Authorization token missing",
+        // });
       }
 
-      const token = authHeader.split(" ")[1];
+      // const token = authHeader?.split(" ")[1];
+
+      // console.log('token',token);
 
       // verify token
       const decoded = jwt.verify(
         token,
-        process.env.JWT_SECRET as string
+       config.jwt_access_secret as string
       ) as JwtPayload;
+
+      console.log('decoded', decoded);
 
       req.user = decoded; // attach user to request
 
